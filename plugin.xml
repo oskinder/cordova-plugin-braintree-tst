@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-braintree-tst" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>BraintreeTst</name>
+    <js-module name="BraintreeTst" src="www/BraintreeTst.js">
+        <clobbers target="cordova.plugins.BraintreeTst"/>
+    </js-module>
+
+    <!-- Android Configuration -->
+    <platform name="android">
+
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="BraintreeTst">
+                <param name="android-package" value="cordova-plugin-braintree-tst.BraintreeTst"/>
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <source-file src="src/android/BraintreeTst.java" target-dir="src/cordova-plugin-braintree-tst/BraintreeTst"/>
+
+        <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
+
+        <config-file target="AndroidManifest.xml" parent="application">
+            <activity android:name="com.braintreepayments.api.BraintreePaymentActivity" />
+            <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity" android:launchMode="singleTask">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <category android:name="android.intent.category.BROWSABLE" />
+                    <data android:scheme="${applicationId}.braintree" />
+                </intent-filter>
+            </activity>
+        </config-file>
+
+    </platform>
+</plugin>
